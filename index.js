@@ -60,7 +60,7 @@ app.post("/generate-presigned-url", async (req, res) => {
     if (chatType === "individual") {
       folderPath = `individual/${senderId}`;
     } else if (chatType === "group") {
-      folderPath = `groups/${groupId}`;
+      folderPath = `groups/${groupId}/${senderId}`;
     }
 
     if (fileType.startsWith("image/")) {
@@ -176,11 +176,11 @@ io.on("connection", (socket) => {
     socket.join(room);
   });
 
-  socket.on("sendGroupMessage", async ({ senderId, groupId, message }) => {
+  socket.on("sendGroupMessage", async ({ senderId, groupId, content }) => {
     const room = groupId;
-    console.log(senderId, groupId, message);
+    console.log(senderId, groupId, content);
     try {
-      if (!senderId || !groupId || !message) {
+      if (!senderId || !groupId || !content) {
         throw new Error("Invalid input data.");
       }
       const sender = await User.findByPk(senderId);
@@ -189,17 +189,19 @@ io.on("connection", (socket) => {
       }
       const groupMessage = await GroupMessage.create({
         senderId: senderId,
-        message: message,
+        content: content,
         groupId: groupId,
+        type: "text",
       });
       console.log(sender);
       const response = {
         id: groupMessage.id,
         senderId: sender.id,
         senderName: sender.firstName + " " + sender.lastName,
-        message: groupMessage.message,
+        content: groupMessage.content,
         groupId: groupMessage.groupId,
         createdAt: groupMessage.createdAt,
+        type: groupMessage.type,
       };
 
       io.to(room).emit("receiveGroupMessage", response);

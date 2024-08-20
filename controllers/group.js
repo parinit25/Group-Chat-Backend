@@ -217,9 +217,10 @@ exports.getGroupMessages = async (req, res) => {
       id: msg.id,
       senderId: msg.User.id,
       senderName: `${msg.User.firstName} ${msg.User.lastName}`,
-      message: msg.message,
+      content: msg.content,
       groupId: msg.groupId,
       createdAt: msg.createdAt,
+      type: msg.type,
     }));
 
     return res

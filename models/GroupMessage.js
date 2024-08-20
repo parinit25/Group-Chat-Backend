@@ -19,6 +19,10 @@ const GroupMessage = sequelize.define(
         key: "id",
       },
     },
+    type: {
+      type: DataTypes.ENUM("text", "media"),
+      allowNull: false,
+    },
     senderId: {
       type: DataTypes.INTEGER,
       references: {
@@ -26,8 +30,8 @@ const GroupMessage = sequelize.define(
         key: "id",
       },
     },
-    message: {
-      type: DataTypes.STRING,
+    content: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
   },
