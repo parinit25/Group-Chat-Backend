@@ -23,6 +23,7 @@ const Messages = sequelize.define(
       type: DataTypes.ENUM("text", "media"),
       allowNull: false,
     },
+    
     receiverId: {
       type: DataTypes.INTEGER,
       allowNull: false,
