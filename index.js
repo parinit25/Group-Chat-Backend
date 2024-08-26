@@ -25,12 +25,11 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "*", // Adjust this to your frontend's origin
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
 
-// Initialize AWS S3
 const s3 = new S3Client({
   region: process.env.AWS_REGION,
   credentials: {

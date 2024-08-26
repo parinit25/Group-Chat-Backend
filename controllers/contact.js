@@ -138,7 +138,6 @@ exports.searchContacts = async (req, res) => {
         [Op.or]: [
           { emailId: { [Op.like]: `%${searchParams}%` } },
           { firstName: { [Op.like]: `%${searchParams}%` } },
-          // { lastName: { [Op.like]: `%${searchParams}%` } },
           { phoneNumber: { [Op.like]: `%${searchParams}%` } },
         ],
       },

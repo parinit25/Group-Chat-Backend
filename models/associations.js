@@ -20,7 +20,6 @@ User.belongsToMany(Group, {
 
 Group.belongsToMany(User, {
   through: GroupMember,
-
   foreignKey: "groupId",
 });
 

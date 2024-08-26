@@ -15,12 +15,11 @@ exports.generateAccessToken = (user) => {
     });
   } catch (error) {
     console.log("Error in generating Access Token:", error);
-    throw new Error("Access Token generation failed"); // Added error handling
+    throw new Error("Access Token generation failed");
   }
 };
 
 exports.generateRefreshToken = async (user) => {
-  // Made function async
   try {
     const userPayload = {
       id: user.id,
@@ -33,15 +32,14 @@ exports.generateRefreshToken = async (user) => {
         expiresIn: "24h",
       }
     );
-    const hashedRefreshToken = await bcrypt.hash(refreshToken, 10); // Added await
-    console.log(hashedRefreshToken, refreshToken, "refreshTOken");
+    const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
     return {
       refreshToken: refreshToken,
       hashedRefreshToken: hashedRefreshToken,
     };
   } catch (error) {
     console.log("Error in generating Refresh Token:", error);
-    throw new Error("Refresh Token generation failed"); // Added error handling
+    throw new Error("Refresh Token generation failed");
   }
 };
 
